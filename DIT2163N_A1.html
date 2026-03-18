@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Brew Haven Café</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="DIT2163N_A1.css">
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-inner">
+            <p class="header-sub">Est. 2024 · Penang, Malaysia</p>
+            <h1>Brew Haven Café</h1>
+            <p class="tagline">Where every cup feels like home</p>
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('menu')">Menu</a>
+        <a onclick="showPage('about')">About</a>
+        <a onclick="showPage('contact')">Contact</a>
+    </nav>
+
+    <!-- HOME -->
+    <section id="home" class="page active">
+        <div class="home">
+            <div class="home-text">
+                <p class="home-label">Your Favourite Café</p>
+                <h2>Welcome to<br><span>Brew Haven Café</span></h2>
+                <p class="home-desc">Handcrafted coffee, warm desserts, and good vibes — all in one cozy spot in the heart of Penang.</p>
+                <button class="home-btn" onclick="showPage('menu')">Explore Our Menu →</button>
+            </div>
+            <div class="home-img">
+                <img src="p1.png" alt="Brew Haven Café Banner">
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section id="menu" class="page">
+        <div class="section-header">
+            <h2>Our Menu</h2>
+            <div class="divider"></div>
+            <p class="section-sub">Freshly prepared, lovingly served</p>
+        </div>
+
+        <!-- Feature 1: Search & Filter Controls -->
+        <div class="menu-controls">
+            <input type="text" id="searchInput" placeholder="🔍  Search menu items..." oninput="filterMenu()">
+            <div class="filter-group">
+                <button class="filter-btn active" onclick="setCategory('All')">All</button>
+                <button class="filter-btn" onclick="setCategory('Drink')">☕ Drinks</button>
+                <button class="filter-btn" onclick="setCategory('Dessert')">🍰 Desserts</button>
+                <button class="filter-btn" onclick="setCategory('Snack')">🥐 Snacks</button>
+            </div>
+            <!-- Feature 2: Sort Controls -->
+            <div class="sort-group">
+                <span class="sort-label">Sort by:</span>
+                <button class="sort-btn active" data-sort="default"    onclick="setSort('default')">Default</button>
+                <button class="sort-btn"        data-sort="name-asc"   onclick="setSort('name-asc')">Name A–Z</button>
+                <button class="sort-btn"        data-sort="name-desc"  onclick="setSort('name-desc')">Name Z–A</button>
+                <button class="sort-btn"        data-sort="price-asc"  onclick="setSort('price-asc')">Price ↑</button>
+                <button class="sort-btn"        data-sort="price-desc" onclick="setSort('price-desc')">Price ↓</button>
+            </div>
+        </div>
+
+        <div class="menu-grid" id="menuContainer">
+            <div class="loading">Loading menu...</div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page">
+        <div class="section-header">
+            <h2>About Us</h2>
+            <div class="divider"></div>
+            <p class="section-sub">Our story, our passion</p>
+        </div>
+
+        <div class="about-wrapper">
+            <p class="about-desc">
+                Brew Haven Café is a cozy neighborhood café offering handcrafted coffee,
+                delicious desserts, and snacks in a warm and relaxing environment.
+                Every visit is crafted to feel like a moment of calm in your busy day.
+                We believe great coffee brings people together — and we're here to prove it.
+            </p>
+            <div class="highlights">
+                <div class="card">
+                    <div class="card-icon">🌿</div>
+                    <h3>Fresh Ingredients</h3>
+                    <p>We source quality local ingredients to ensure every bite and every sip is at its best.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">☕</div>
+                    <h3>Cozy Atmosphere</h3>
+                    <p>Our warm, welcoming space is designed for you to relax, unwind, and feel at home.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>Affordable Prices</h3>
+                    <p>Great taste shouldn't break the bank. We offer the best value in every cup and plate.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="page">
+        <div class="section-header">
+            <h2>Contact / Feedback</h2>
+            <div class="divider"></div>
+            <p class="section-sub">We'd love to hear from you</p>
+        </div>
+
+        <div class="contact-wrapper">
+            <div class="contact-form-wrapper">
+                <form onsubmit="submitForm(event)">
+                    <div class="form-group">
+                        <label for="nameInput">Name</label>
+                        <input type="text" id="nameInput" placeholder="Your full name">
+                        <span class="error-text" id="nameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput">Email</label>
+                        <input type="email" id="emailInput" placeholder="your@email.com">
+                        <span class="error-text" id="emailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="messageInput">Message / Feedback</label>
+                        <textarea id="messageInput" rows="4" placeholder="Tell us what you think..."></textarea>
+                        <span class="error-text" id="messageError"></span>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+                <div id="success">✅ Message sent successfully! Thank you for your feedback.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="footer-logo">Brew Haven Café</p>
+        <p class="footer-copy">&copy; 2026 Brew Haven Café · Penang, Malaysia</p>
+    </footer>
+
+    <!-- Feature 3: Menu Item Popup Modal -->
+    <div id="menuModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <img id="modalImg" src="" alt="" onerror="this.style.display='none'">
+            <div class="modal-body">
+                <div class="modal-top">
+                    <span class="cat-badge" id="modalCat"></span>
+                    <span class="modal-tag" id="modalTag"></span>
+                </div>
+                <h2 id="modalName"></h2>
+                <p id="modalDesc"></p>
+                <div class="modal-footer">
+                    <span class="modal-price" id="modalPrice"></span>
+                    <span class="modal-calories">🔥 <span id="modalCalories"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature 4: Back To Top Button -->
+    <button id="backToTop" onclick="scrollToTopFn()" title="Back to top">↑</button>
+
+    <script src="DIT2163N_A1.js"></script>
+
+</body>
+</html>
